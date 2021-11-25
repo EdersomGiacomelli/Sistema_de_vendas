@@ -256,11 +256,27 @@ public class FuncionarioDao {
             
             //login
             if(rs.next()){
-                JOptionPane.showMessageDialog(null, "Login efetuado!!");
-               //Abrir a tela principal
-                frmmenu tela = new frmmenu();
-                tela.acessousuario = rs.getString("nome");
-                tela.setVisible(true);
+                //caso seja do tipo =Admin
+                if(rs.getString("nivel_acesso").equals("Admin")){
+                    JOptionPane.showMessageDialog(null, "Login efetuado!!");
+                    //Abrir a tela principal
+                    frmmenu tela = new frmmenu();
+                    tela.acessousuario = rs.getString("nome");
+                    tela.setVisible(true);
+                }
+                //Caso seja usuário normal
+                else if(rs.getString("nivel_acesso").equals("Usuário")){
+                    JOptionPane.showMessageDialog(null, "Login efetuado!!");
+                    //Abrir a tela principal
+                    frmmenu tela = new frmmenu();
+                    tela.acessousuario = rs.getString("nome");
+                    //Desabilitar Menus
+                    tela.menuparciais.setEnabled(false);
+                    tela.menuhistorico.setEnabled(false);
+                    tela.menufuncionarios.setEnabled(false);
+                    tela.setVisible(true);
+                }
+                
             } else{
                 //dados incorretos
                 JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorretos!");
